@@ -6,7 +6,7 @@ public class UnityObserverExample : UnityObserver
     public const string UPDATE_UNITYOBSERVER = "UPDATE_UNITYOBSERVER";
     public const string UPDATE_OBSERVER = "UPDATE_OBSERVER";
     public const string UPDATE_ALL_OBSERVERS = "UPDATE_ALL_OBSERVERS";
-    private const float secondDelay = 3.0f;
+    private const float secondDelay = 0.5f;
     private ObserverExample normalObjectObserver;
 
     private void Start( )
@@ -28,6 +28,7 @@ public class UnityObserverExample : UnityObserver
         }
     }
 
+    //TODO: Move to Unit Testing
     private IEnumerator UpdateObservers( )
     {
         while ( true )
@@ -36,7 +37,9 @@ public class UnityObserverExample : UnityObserver
             yield return new WaitForSeconds( secondDelay );
             Subject.Notify( UPDATE_UNITYOBSERVER );
             yield return new WaitForSeconds( secondDelay );
-            Subject.Notify( UPDATE_ALL_OBSERVERS );
+            //Subject.Notify( UPDATE_ALL_OBSERVERS );
+            //yield return new WaitForSeconds( secondDelay );
+            Subject.NotifySendAll( this, UPDATE_OBSERVER, null );
             yield return new WaitForSeconds( secondDelay );
         }
     }
